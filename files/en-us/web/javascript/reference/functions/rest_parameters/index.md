@@ -81,7 +81,7 @@ There are three main differences between rest parameters and the
 
 ### From arguments to an array
 
-Rest parameters were introduced to reduce the boilerplate code that was commonly used
+Rest parameters were introduced to remove the boilerplate code that was commonly used
 for converting a set of arguments to an array.
 
 ```js
@@ -93,16 +93,19 @@ function f(a, b) {
   let normalArray = [].slice.call(arguments)
   // -- or --
   let normalArray = Array.from(arguments)
+  
+  console.log(normalArray instanceof Array) // prints true
+  console.log(arguments instanceof Array) // prints false
 
   let first = normalArray.shift()  // OK, gives the first argument
   let first = arguments.shift()    // ERROR (arguments is not a normal array)
 }
 
-// Now, you can easily gain access to a normal array using a rest parameter
+// Using a rest parameter gives you access to a normal array with no intermediate step
 
-function f(...args) {
-  let normalArray = args
-  let first = normalArray.shift() // OK, gives the first argument
+function f(...argsAsNormalArray) {
+  console.log(argsAsNormalArray instanceof Array) // prints true
+  let first = argsAsNormalArray.shift() // OK, gives the first argument
 }
 ```
 
